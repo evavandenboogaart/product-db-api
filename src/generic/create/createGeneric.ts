@@ -5,7 +5,7 @@ import { HttpStatusCode } from "axios";
 const createGeneric = async ({
   generic,
   collection,
-}: { generic: string } & Partial<DatabaseCollectionType>): Promise<{ status?: HttpStatusCode }> => {
+}: { generic: string } & Partial<DatabaseCollectionType>): Promise<{ status: HttpStatusCode }> => {
   if (!collection) return { status: HttpStatusCode.BadRequest };
   const newValue = {
     generic: encrypt(generic),
