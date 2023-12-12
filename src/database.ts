@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const connection_string = process.env.MONGODB_CONNECTION_STRING;
+const dbName = process.env.MONGODB_NAME;
 
 type CallBackType = (db: Db) => Promise<unknown>;
 
@@ -14,8 +15,8 @@ export interface DatabaseCollectionType {
 export default async (callback: CallBackType) => {
   if (!connection_string) throw("connection_string missing in env file");
   const client = new MongoClient(connection_string);
-  const aoiDb = client.db('aoi');
-  const response = await callback(aoiDb);
+  const db = client.db(dbName);
+  const response = await callback(db);
   client.close();
   return response;
 };
